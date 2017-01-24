@@ -1,0 +1,38 @@
+
+	  p=1,i=.3,d=3,f=3
+	  6a)4290
+	  6b)4150
+	  3a)4290
+	  3b)4190
+	  .1a)0
+	  .1b)0
+	  1a)4300
+	  1b)4260
+	  30a)4300
+	  30b)4240
+	 .5)4280
+	 .5)4240
+	 
+	 
+	 at 500 RPM...
+	 p gain 0.2
+	 feed forward 0.043
+	 ramp rate 2
+	 
+	 1500 RPM 
+	 p gain 0.1
+	 d gain 10
+	 f forward 0.035
+	 ramp rate 2
+	 
+	 3000 RPM CAN 5, controller 1
+	 p gain 0.1
+	 d gain 10
+	 f forward 0.0336
+	 ramp rate 2
+	 
+	 3000 RPM CAN 6, controller
+	 p gain 0.1
+	 d gain 10
+	 f forward 0.0342
+	 ramp rate 2
