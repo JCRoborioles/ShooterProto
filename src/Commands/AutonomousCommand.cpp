@@ -25,7 +25,7 @@ AutonomousCommand::AutonomousCommand(): Command() {
 
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
-	Robot::shooterSubsystem->TurnOn();
+	Robot::shooterSubsystem->TurnOnRPM();
 }
 
 // Called repeatedly when this Command is scheduled to run

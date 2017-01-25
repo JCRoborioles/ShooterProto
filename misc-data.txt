@@ -36,3 +36,10 @@
 	 d gain 10
 	 f forward 0.0342
 	 ramp rate 2
+	 
+	 percent mode
+	.7 ON PERCENT MODE IS 2940 RPMs
+	.5 ON PERCENT MODE IS 2100 RPMs
+	.2 ON PERCENT MODE IS 760 RPMs
+	
+	Output close loop error and difference of rpms has a factor of 6.81
