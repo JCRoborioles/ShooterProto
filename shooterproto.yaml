@@ -25,6 +25,23 @@ Children:
           value: '6'
       Base: CAN Talon
       Name: talonController2
+    - Children: []
+      Properties:
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: [Victor, Jaguar, Talon, VictorSP, TalonSRX, Spark, SD540]
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19']
+          default: '0'
+          name: Output Channel (PWM)
+          validators: [PWMOutput]
+          value: '0'
+      Base: Speed Controller
+      Name: feederMotor
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
@@ -88,8 +105,9 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Josh\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\Josh\workspace\shooterproto'}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Cole
+      Werling\workspace', extension: null, folder: true, name: Eclipse Workspace,
+    validators: null, value: 'C:\Users\Cole Werling\workspace'}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -107,8 +125,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Josh\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\Josh\'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Cole
+      Werling\', extension: null, folder: true, name: Wiring file location, validators: null,
+    value: 'C:\Users\Cole Werling'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot
