@@ -43,3 +43,10 @@
 	.2 ON PERCENT MODE IS 760 RPMs
 	
 	Output close loop error and difference of rpms has a factor of 6.81
+	
+	**** good one Ethan found
+	2000 RPM  and others
+	p gain 0.1
+	d gain 5.5
+	f forward 0.0356
+	ramp rate 2

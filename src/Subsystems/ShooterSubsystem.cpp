@@ -10,7 +10,8 @@
 
 
 #include "CANTalon.h"
-#include "CANSpeedController.h"
+#include <CANSpeedController.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 #include "ShooterSubsystem.h"
 #include "../RobotMap.h"
@@ -40,10 +41,106 @@ void ShooterSubsystem::InitDefaultCommand() {
 }
 
 void ShooterSubsystem::TurnOnThrottle(){
-	talonController->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-	talonController2->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-		talonController->Set(.60);
-		talonController2->Set(.60);
+	talonController->SetControlMode(frc::CANSpeedController::ControlMode::kPercentVbus);
+	talonController2->SetControlMode(frc::CANSpeedController::ControlMode::kPercentVbus);
+	talonController->Set(.60);
+	talonController2->Set(.60);
+}
+
+//call this once when the robot program is enabled to set the defaults
+void ShooterSubsystem::BasicTabUpdateValues() {
+	//GET SOME SETTINGS
+	std::string cont1_p_str = frc::SmartDashboard::GetString("DB/String 0", "0.1"); //MOTOR 1 P
+	std::string cont1_d_str = frc::SmartDashboard::GetString("DB/String 1", "5.5"); //MOTOR 1 D
+	std::string cont1_f_str = frc::SmartDashboard::GetString("DB/String 2", "0.356"); //MOTOR 1 F
+	std::string cont1_rr_str = frc::SmartDashboard::GetString("DB/String 4", "2"); //MOTOR 1 RAMP RATE
+	std::string cont1_rpm_str = frc::SmartDashboard::GetString("DB/String 5", "2000"); //MOTOR 1 RPM
+
+	std::string cont2_p_str = frc::SmartDashboard::GetString("DB/String 5", "0.1"); //MOTOR 2 P
+	std::string cont2_d_str = frc::SmartDashboard::GetString("DB/String 6", "5.5"); //MOTOR 2 D
+	std::string cont2_f_str = frc::SmartDashboard::GetString("DB/String 7", "0.356"); //MOTOR 2 F
+	std::string cont2_rr_str = frc::SmartDashboard::GetString("DB/String 8", "2"); //MOTOR 2 RAMP RATE
+	std::string cont2_rpm_str = frc::SmartDashboard::GetString("DB/String 9", "2000"); //MOTOR 2 RPM
+
+	//SET THEM BACK IN CASE WE DEFAULTED SO WE CAN SHOW THEM WHAT WE'RE USING
+	frc::SmartDashboard::PutString("DB/String 0", cont1_p_str);
+	frc::SmartDashboard::PutString("DB/String 1", cont1_d_str);
+	frc::SmartDashboard::PutString("DB/String 2", cont1_f_str);
+	frc::SmartDashboard::PutString("DB/String 3", cont1_rr_str);
+	frc::SmartDashboard::PutString("DB/String 4", cont1_rpm_str);
+
+	frc::SmartDashboard::PutString("DB/String 5", cont2_p_str);
+	frc::SmartDashboard::PutString("DB/String 6", cont2_d_str);
+	frc::SmartDashboard::PutString("DB/String 7", cont2_f_str);
+	frc::SmartDashboard::PutString("DB/String 8", cont2_rr_str);
+	frc::SmartDashboard::PutString("DB/String 9", cont2_rpm_str);
+
+	//convert to doubles and set values on controller
+	double p1, d1, f1, rr1, rpm1;
+	double p2, d2, f2, rr2, rpm2;
+	try
+	{
+		p1 = std::stod(cont1_p_str);
+		d1 = std::stod(cont1_d_str);
+		f1 = std::stod(cont1_f_str);
+		rr1 = std::stod(cont1_rr_str);
+		rpm1 = std::stod(cont1_rpm_str);
+
+		p2 = std::stod(cont2_p_str);
+		d2 = std::stod(cont2_d_str);
+		f2 = std::stod(cont2_f_str);
+		rr2 = std::stod(cont2_rr_str);
+		rpm2 = std::stod(cont2_rpm_str);
+
+		//put this after all the stod's so that 1 bad value kicks out and we
+		//won't set anything
+		talonController->SetPID(p1, 0, d1, f1);
+		talonController->SetCloseLoopRampRate(rr1);
+		talonController->Set(rpm1);
+
+		talonController->SetPID(p2, 0, d2, f2);
+		talonController->SetCloseLoopRampRate(rr2);
+		talonController->Set(rpm2);
+	}
+	catch (std::invalid_argument e)
+	{
+		std::cout << "Unable to parse basic tab values";
+	}
+	catch (std::out_of_range e)
+	{
+		std::cout << "Unable to parse basic tab values";
+	}
+
+
+}
+
+void ShooterSubsystem::TurnOnRPMUsingBasicTab() {
+	//TODO try disable to turn off, enable to turn on
+	//talonController->Enable();
+	//talonController2->Enable();
+
+	talonController->SetControlMode(frc::CANSpeedController::ControlMode::kSpeed);
+	talonController->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+	talonController->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+	talonController->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+	talonController->SetSensorDirection(false);
+
+	talonController2->SetControlMode(frc::CANSpeedController::ControlMode::kSpeed);
+	talonController2->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+	talonController2->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+	talonController2->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+	talonController2->SetSensorDirection(true);
+
+	int izone = 0;
+	int profile = 0;
+
+	talonController->SelectProfileSlot(profile);
+	talonController->SetIzone(izone);
+
+	talonController2->SelectProfileSlot(profile);
+	talonController2->SetIzone(izone);
+
+	BasicTabUpdateValues();
 }
 
 void ShooterSubsystem::TurnOnRPM(){
@@ -56,19 +153,19 @@ void ShooterSubsystem::TurnOnRPM(){
 	//talonController2->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 	//talonController2->ConfigEncoderCodesPerRev(1024);
 
-
-	talonController->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+	talonController->SetControlMode(frc::CANSpeedController::ControlMode::kSpeed);
 	talonController->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	talonController->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	talonController->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 	talonController->SetSensorDirection(false);
 
-	talonController2->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+	talonController2->SetControlMode(frc::CANSpeedController::ControlMode::kSpeed);
 	talonController2->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	talonController2->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	talonController2->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 	talonController2->SetSensorDirection(true);
 
+	//we'll put optimized values here eventually
 	double p = .1;
 	double i = 0;
 	double d = 10;
@@ -77,7 +174,7 @@ void ShooterSubsystem::TurnOnRPM(){
 	int izone = 0;
 	double ramprate = 2;
 	int profile = 0;
-	double rpm=500;
+	double rpm=1500;
 
 	talonController->SelectProfileSlot(profile);
 	talonController->SetPID(p, i, d, f);
@@ -95,11 +192,16 @@ void ShooterSubsystem::TurnOff(){
 	talonController->Set(0);
 	talonController2->Set(0);
 	feederMotor->Set(0);
+
+	//TODO try disable instead of set(0) and see if that gives us a better turn off
+	//NOTE, make sure to enable them in the "turnon" method then
+	//talonController->Disable();
+	//talonController2->Disable();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void ShooterSubsystem::PrintValues(){
-	printf("%f %i %f %i \n",talonController->GetSpeed(),talonController->GetClosedLoopError(),talonController2->GetSpeed(),talonController2->GetClosedLoopError());
+	printf("RPM1=%f E1=%i RPM2=%f E2=%i \n",talonController->GetSpeed(),talonController->GetClosedLoopError(),talonController2->GetSpeed(),talonController2->GetClosedLoopError());
 }
 
 void ShooterSubsystem::TurnOnFeederMotor(){
