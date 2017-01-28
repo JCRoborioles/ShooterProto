@@ -51,11 +51,7 @@ void ShooterSubsystem::TurnOnThrottle(){
 void ShooterSubsystem::BasicTabUpdateValues() {
 	//GET SOME SETTINGS
 	std::string cont1_p_str = frc::SmartDashboard::GetString("DB/String 0", "0.1"); //MOTOR 1 P
-	if (cont1_p_str == "") cont1_p_str = "0.1";
-
 	std::string cont1_d_str = frc::SmartDashboard::GetString("DB/String 1", "5.5"); //MOTOR 1 D
-	if (cont1_d_str == "") cont1_d_str = "5.5";
-
 	std::string cont1_f_str = frc::SmartDashboard::GetString("DB/String 2", "0.356"); //MOTOR 1 F
 	std::string cont1_rr_str = frc::SmartDashboard::GetString("DB/String 4", "2"); //MOTOR 1 RAMP RATE
 	std::string cont1_rpm_str = frc::SmartDashboard::GetString("DB/String 5", "2000"); //MOTOR 1 RPM
@@ -102,9 +98,9 @@ void ShooterSubsystem::BasicTabUpdateValues() {
 		talonController->SetCloseLoopRampRate(rr1);
 		talonController->Set(rpm1);
 
-		talonController2->SetPID(p2, 0, d2, f2);
-		talonController2->SetCloseLoopRampRate(rr2);
-		talonController2->Set(rpm2);
+		talonController->SetPID(p2, 0, d2, f2);
+		talonController->SetCloseLoopRampRate(rr2);
+		talonController->Set(rpm2);
 	}
 	catch (std::invalid_argument e)
 	{

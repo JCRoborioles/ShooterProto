@@ -32,7 +32,7 @@ ShooterCommand::ShooterCommand(): Command() {
 // Called just before this Command runs the first time
 void ShooterCommand::Initialize() {
 	//printf("initialize");
-	std::cout << "initialize\n";
+	std::cout << "initialize";
 
 	//this is the method we'll call for competition after we find the optimized values
 	//Robot::shooterSubsystem->TurnOnRPM();
@@ -85,13 +85,13 @@ void ShooterCommand::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterCommand::IsFinished() {
    //printf("isFinished");
-	//std::cout << "isFinished";
+	std::cout << "isFinished";
 	return false;
 }
 
 // Called once after isFinished returns true
 void ShooterCommand::End() {
-	std::cout << "End\n";
+	std::cout << "End";
 	//printf("End");
 }
 
@@ -99,5 +99,5 @@ void ShooterCommand::End() {
 // subsystems is scheduled to run
 void ShooterCommand::Interrupted() {
 	Robot::shooterSubsystem->TurnOff();
-	printf("interrupted\n");
+	printf("interrupted");
 }
