@@ -140,6 +140,42 @@ void ShooterSubsystem::BasicTabUpdateValues() {
 
 }
 
+void ShooterSubsystem::CustomTabUpdateValues() {
+	//std::cout << "BASIC SET VALUES \n";
+
+	//GET SOME SETTINGS
+	double rpm1 = frc::SmartDashboard::GetNumber("Shtr_M1_RPM", 0);
+	double p1 = frc::SmartDashboard::GetNumber("Shtr_M1_p", 0);
+	double i1 = frc::SmartDashboard::GetNumber("Shtr_M1_i", 0);
+	double d1 = frc::SmartDashboard::GetNumber("Shtr_M1_d", 0);
+	double f1 = frc::SmartDashboard::GetNumber("Shtr_M1_f", 0);
+	double rr1 = frc::SmartDashboard::GetNumber("Shtr_M1_rr", 0);
+
+
+	double rpm2 = frc::SmartDashboard::GetNumber("Shtr_M2_RPM", 0);
+	double p2 = frc::SmartDashboard::GetNumber("Shtr_M2_p", 0);
+	double i2 = frc::SmartDashboard::GetNumber("Shtr_M2_i", 0);
+	double d2 = frc::SmartDashboard::GetNumber("Shtr_M2_d", 0);
+	double f2 = frc::SmartDashboard::GetNumber("Shtr_M2_f", 0);
+	double rr2 = frc::SmartDashboard::GetNumber("Shtr_M2_rr", 0);
+
+		std::cout << "rpm values "<< rpm1 << " "<< rpm2 << "\n";
+		std::cout << "p values "<< p1 << " "<< p2 << "\n";
+		std::cout << "d values "<< d1 << " "<< d2 << "\n";
+		std::cout << "f values "<< f1 << " "<< f2 << "\n";
+		std::cout << "rr values "<< rr1 << " "<< rr2 << "\n";
+		//put this after all the stod's so that 1 bad value kicks out and we
+		//won't set anything
+		talonController->SetPID(p1, i1, d1, f1);
+		talonController->SetCloseLoopRampRate(rr1);
+		talonController->Set(rpm1);
+
+		talonController2->SetPID(p2, i2, d2, f2);
+		talonController2->SetCloseLoopRampRate(rr2);
+		talonController2->Set(rpm2);
+
+}
+
 void ShooterSubsystem::TurnOnRPMUsingBasicTab() {
 	//TODO try disable to turn off, enable to turn on
 	talonController->Enable();
@@ -166,7 +202,8 @@ void ShooterSubsystem::TurnOnRPMUsingBasicTab() {
 	talonController2->SelectProfileSlot(profile);
 	talonController2->SetIzone(izone);
 
-	BasicTabUpdateValues();
+	//BasicTabUpdateValues();
+	CustomTabUpdateValues();
 }
 
 void ShooterSubsystem::TurnOnRPM(){
@@ -217,6 +254,7 @@ void ShooterSubsystem::TurnOnRPM(){
 	talonController2->SetCloseLoopRampRate(ramprate);
 	talonController2->Set(rpm);
 }
+
 void ShooterSubsystem::TurnOff(){
 	//talonController->Set(0);
 	//talonController2->Set(0);
@@ -234,6 +272,8 @@ void ShooterSubsystem::TurnOff(){
 // here. Call these from Commands.
 void ShooterSubsystem::PrintValues(){
 	printf("RPM1=%f E1=%i RPM2=%f E2=%i \n",talonController->GetSpeed(),talonController->GetClosedLoopError(),talonController2->GetSpeed(),talonController2->GetClosedLoopError());
+	double Encoder1 = frc::SmartDashboard::PutNumber("Shtr_M1_Encoder", talonController->GetSpeed());
+	double Encoder2 = frc::SmartDashboard::PutNumber("Shtr_M2_Encoder", talonController2->GetSpeed());
 }
 
 void ShooterSubsystem::TurnOnFeederMotor(){
