@@ -80,8 +80,7 @@ void ShooterCommand::Execute() {
 	if(executeCount==25)
 	{
 		//	not tested
-		RobotMap::shooterSubsystemaugerMotor->Set(.1);
-		RobotMap::shooterSubsystemfeederMotor->Set(.1);
+		Robot::shooterSubsystem->TurnOnFeederMotor();
 	}
 	//resets execute value -- don't make it <= above
 	if(executeCount==100)
