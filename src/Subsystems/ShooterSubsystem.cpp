@@ -277,7 +277,7 @@ void ShooterSubsystem::PrintValues(){
 }
 
 void ShooterSubsystem::TurnOnFeederMotor(){
-	feederMotor->Set(.25);
+	feederMotor->Set(.4);
 	augerMotor->Set(-.75);
 
 }

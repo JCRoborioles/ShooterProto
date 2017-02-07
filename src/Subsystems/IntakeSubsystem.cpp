@@ -40,10 +40,10 @@ void IntakeSubsystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void ShooterSubsystem::TurnOnIntakeMotor(){
+void IntakeSubsystem::TurnOnIntakeMotor(){
 	RobotMap::intakeSubsystemintakeMotor->Set(-.25);
 }
 
-void ShooterSubsystem::TurnOff(){
+void IntakeSubsystem::TurnOff(){
 	RobotMap::intakeSubsystemintakeMotor->Set(0);
 }
