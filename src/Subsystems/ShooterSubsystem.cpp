@@ -55,6 +55,7 @@ void ShooterSubsystem::BasicTabUpdateValues() {
 
 	//GET SOME SETTINGS
 	std::string cont1_p_str = frc::SmartDashboard::GetString("DB/String 0", "0.1"); //MOTOR 1 P
+	std::cout<<"cont_p_str " << cont1_p_str;
 	if (cont1_p_str == "") cont1_p_str = "0.1";
 
 	std::string cont1_d_str = frc::SmartDashboard::GetString("DB/String 1", "5.5"); //MOTOR 1 D
@@ -142,7 +143,7 @@ void ShooterSubsystem::BasicTabUpdateValues() {
 }
 
 void ShooterSubsystem::CustomTabUpdateValues() {
-	//std::cout << "BASIC SET VALUES \n";
+	std::cout << "custom SET VALUES \n";
 
 	//GET SOME SETTINGS
 	double rpm1 = frc::SmartDashboard::GetNumber("Shtr_M1_RPM", 0);
@@ -186,13 +187,13 @@ void ShooterSubsystem::TurnOnRPMUsingBasicTab() {
 	talonController->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	talonController->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	talonController->ConfigPeakOutputVoltage(+12.0f, -12.0f);
-	talonController->SetSensorDirection(false);
+	talonController->SetSensorDirection(true);
 
 	talonController2->SetControlMode(frc::CANSpeedController::ControlMode::kSpeed);
 	talonController2->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	talonController2->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	talonController2->ConfigPeakOutputVoltage(+12.0f, -12.0f);
-	talonController2->SetSensorDirection(true);
+	talonController2->SetSensorDirection(false);
 
 	int izone = 0;
 	int profile = 0;
@@ -267,6 +268,7 @@ void ShooterSubsystem::TurnOff(){
 	talonController2->Disable();
 	feederMotor->Disable();
 	augerMotor->Disable();
+	intakeMotor->Disable();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
