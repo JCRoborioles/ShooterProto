@@ -61,6 +61,7 @@ std::chrono::milliseconds getTimestamp() {
 	milliseconds ms = duration_cast< milliseconds >(
 	    system_clock::now().time_since_epoch()
 	);
+	return ms;
 }
 
 // Called repeatedly when this Command is scheduled to run

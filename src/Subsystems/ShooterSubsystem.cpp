@@ -67,7 +67,7 @@ void ShooterSubsystem::BasicTabUpdateValues() {
 	if (cont1_rr_str == "") cont1_rr_str = "2";
 
 	std::string cont1_rpm_str = frc::SmartDashboard::GetString("DB/String 4", "2000"); //MOTOR 1 RPM
-	if (cont1_rpm_str == "") cont1_rpm_str = "2000";
+	if (cont1_rpm_str == "") cont1_rpm_str = "2400";
 
 	std::string cont2_p_str = frc::SmartDashboard::GetString("DB/String 5", "0.1"); //MOTOR 2 P
 	if (cont2_p_str == "") cont2_p_str = "0.1";
