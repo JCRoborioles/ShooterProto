@@ -24,12 +24,14 @@ IncreaseRPM::IncreaseRPM(): Command() {
 
 // Called just before this Command runs the first time
 void IncreaseRPM::Initialize() {
-
+	std::cout<<"increase RPM initializer \n";
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IncreaseRPM::Execute() {
+	std::cout<<"increase RPM method \n";
 	Robot::shooterSubsystem->increaseRPM();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

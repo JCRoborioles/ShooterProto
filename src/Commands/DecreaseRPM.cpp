@@ -29,7 +29,8 @@ void DecreaseRPM::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DecreaseRPM::Execute() {
-	Robot::shooterSubsystem->returnOriginalRPM();
+	Robot::shooterSubsystem->decreaseRPM();
+	std::cout<<"decrease RPM method \n";
 }
 
 // Make this return true when this Command no longer needs to run execute()
